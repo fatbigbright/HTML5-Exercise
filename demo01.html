@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+	<body>
+		<script type="text/javascript">
+		var FPS = 30;
+		var textX = 50;
+		var textY = 50;
+		window.onload = function () {
+				var canvas = document.getElementById("testCanvas");
+				
+				setInterval(function(){
+					UpdateCanvas();
+					Draw();
+				}, 1000/FPS);
+				
+				function UpdateCanvas(){
+					//textX += 1;
+					//textY += 1;
+				}
+				
+				function Draw(){
+					//canvas.clearRect(0, 0, 640, 480);
+					canvas.fillStyle = "#000";
+					canvas.fillText("Yep, i got you.", textX, textY);
+					//alert("draw.");
+				}
+			}
+		</script>
+		<Canvas id="testCanvas" width="640" height="480">
+		</Canvas>
+	</body>
+</html>

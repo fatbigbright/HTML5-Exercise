@@ -1,0 +1,71 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<body>
+        <script type="text/javascript">
+            var context;
+            var width;
+            var height;
+            var FPS = 30;
+            function Initialize () {
+                var canvas = document.getElementById("myCanvas");
+                context = canvas.getContext("2d");
+                width = canvas.width;
+                height = canvas.height;
+            }
+            function DrawLine(cxt, sX, sY, eX, eY){
+                return {
+                    x: sX,
+                    y: sY,
+                    context: cxt,
+                    startX: sX,
+                    startY: sY,
+                    endX: eX,
+                    endY: eY,
+                    Draw: function () {
+                        var directionX, directionY;
+                        if( (this.startX == this.endX && this.y == this.endY) || 
+                            (this.startX != this.endX && this.x == this.endX)){
+                            this.context.moveTo(this.startX, this.startY);
+                            this.context.lineTo(this.endX, this.endY);
+                            this.context.stroke();
+                        }
+                        else if( this.startX == this.endX){
+                            directionY = (this.endY - this.startY)/Math.abs(this.endY - this.startY);
+                            this.context.moveTo(this.startX, this.startY);
+                            this.context.lineTo(this.x, this.y);
+                            this.context.stroke();
+                            this.y += directionY;
+                        }
+                        else{
+                            var k = (this.endY - this.startY)/(this.endX - this.startX);
+                            directionX = (this.endX - this.startX)/Math.abs(this.endX - this.startX);
+                            this.context.moveTo(this.startX, this.startY);
+                            this.y = k * (this.x - this.startX) + this.startY;
+                            this.context.lineTo(this.x, this.y);
+                            this.context.stroke();
+                            this.x += directionX;
+                        }
+                    }
+                };
+            }
+            function clearFrame(){
+                context.clearRect(0, 0, width, height);
+            }
+            window.onload = function () {
+                Initialize();
+                var drawFirstLine = DrawLine(context, 30, 30, 150, 200);
+                var drawSecondLine = DrawLine(context, 30, 30, 200, 150);
+                setInterval( function () {//main Loop
+                    clearFrame();
+                    drawFirstLine.Draw();
+                    drawSecondLine.Draw();
+                    context.font = "10px Simsun";
+                    context.fillText("利用动画方式实现了demo05.html中没实现的多线共画的问题，但机制完全不一样了。每帧都会重画。", 50, 300);
+                }, 1000/FPS);
+            }
+        </script>
+        <canvas id="myCanvas" width="640" height="480" style="border: 1px solid #c3c3c3;">
+            Your browser does not support canvas element.
+        </canvas>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<!--First demo for testing canvas element-->
+<html>
+	<body>
+		<canvas id="testCanvas" width="640" height="480" style="border: 1px solid #c3c3c3;">
+			Your browser does not support the canvas element.
+		</canvas>
+		<script type="text/javascript">
+			var c = document.getElementById("testCanvas");
+			var cxt = c.getContext("2d");
+			var grd = cxt.createLinearGradient(0, 0, 275, 100);
+			grd.addColorStop(0, "#FF0000");
+			grd.addColorStop(1, "#0000FF");
+			//grd.addColorStop(2, "#0000FF");
+			cxt.fillStyle = grd;
+			cxt.fillRect(0, 0, 275, 100);
+			
+			var img = new Image();
+			img.src = "tw_0011.jpg";
+			cxt.drawImage(img, 0, 100);
+			
+			cxt.beginPath();
+			cxt.arc(200, 300, 15, 0, Math.PI*2, true);
+			cxt.closePath();
+			cxt.fill();
+		</script>
+	</body>
+</html>

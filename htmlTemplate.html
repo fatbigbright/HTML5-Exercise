@@ -1,0 +1,22 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<body>
+        <script type="text/javascript">
+            var context;
+            var width;
+            var height;
+            function Initialize () {
+                var canvas = document.getElementById("myCanvas");
+                context = canvas.getContext("2d");
+                width = canvas.width;
+                height = canvas.height;
+            }
+            window.onload = function () {
+                Initialize();
+            }
+        </script>
+        <canvas id="myCanvas" width="640" height="480" style="border: 1px solid #c3c3c3;">
+            Your browser does not support canvas element.
+        </canvas>
+	</body>
+</html>

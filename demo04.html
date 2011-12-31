@@ -1,0 +1,36 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <script type="text/javascript" src="./scripts/DrawArc.js"></script>
+    </head>
+	<body>
+        <script type="text/javascript">
+            var context;
+            var width;
+            var height;
+            function Initialize () {
+                var canvas = document.getElementById("myCanvas");
+                context = canvas.getContext("2d");
+                width = canvas.width;
+                height = canvas.height;
+            }
+            function DrawExplanation () {
+                context.font = "12px Simsun";
+                context.fillText("画弧函数起始点与终止点的顺序不影响半弧的确定，画哪一半弧只与closeWise参数有关。", 0, 200);
+                context.fillText("是否调用closePath函数决定弧是否封口。", 0, 224);
+            }
+            window.onload = function () {
+                Initialize();
+                
+                DrawArc(context, 90, 90, 40, 0.5 * Math.PI, 2 * Math.PI, "#390", false, true);
+                DrawArc(context, 120, 90, 40, 0.5 * Math.PI, 2 * Math.PI, "#390", true, true);
+                DrawArc(context, 210, 90, 40, 0.5 * Math.PI, 2 * Math.PI, "#390", false, false);
+                DrawArc(context, 230, 90, 40, 0.5 * Math.PI, 2 * Math.PI, "#390", true, false);
+                DrawArc(context, 350, 90, 40, 2 * Math.PI, 0.5 * Math.PI, "#390", false, true);
+                DrawExplanation();
+            }
+        </script>
+        <canvas id="myCanvas" width="640" height="480" style="border: 1px solid #c3c3c3;">
+        </canvas>
+	</body>
+</html>

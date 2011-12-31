@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+	<body>
+		<script type="text/javascript">
+			window.onload = function () {
+				var btn = document.getElementById("change");
+				setInterval(function () {
+					var test = document.getElementById("testDIV");
+					var state0 = "Changed.";
+					var state1 = "Rollback.";
+					if(test.innerHTML == state0){
+						test.innerHTML = state1;
+					}
+					else{
+						test.innerHTML = state0;
+					}
+				}, 1000);
+			}
+		</script>
+		<div id="testDIV" style="width: 200px; height: 20px;">Initialized.</div>
+	</body>
+</html>

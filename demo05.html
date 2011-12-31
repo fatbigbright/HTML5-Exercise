@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<body>
+        <script type="text/javascript">
+            var context;
+            var width;
+            var height;
+            var FPS = 30;
+            var imageData;
+            var pixels;
+            function Initialize () {
+                var canvas = document.getElementById("myCanvas");
+                context = canvas.getContext("2d");
+                width = canvas.width;
+                height = canvas.height;
+            }
+            function DrawArcAsync(context, x, y, r, color){
+            }
+            function DrawLineAsyne(context, startX, startY, endX, endY, color){
+                var x = startX;
+                var y = startY;
+                var directionX;
+                var directionY;
+                var k, intervalID;
+                context.moveTo(x, y);
+                if( startX == endX ){
+                    directionY = (endY - startY)/Math.abs(endY - startY);
+                    intervalID = setInterval( function () {
+                        if ( y == endY){
+                            clearInterval(intervalID);
+                            return;
+                        }
+                        context.lineTo(x, y);
+                        context.stroke();
+                        y += directionY;
+                    }, 1000/FPS);
+                }
+                else{
+                    k = (endY - startY)/(endX - startX);
+                    directionX = (endX - startX)/Math.abs(endX - startX);
+                    intervalID = setInterval( function () {
+                        if( x == endX || y == endY){
+                            clearInterval(intervalID);
+                            return;
+                        }
+                        y = k * (x - startX) + startY;
+                        context.lineTo(x, y);
+                        context.stroke();
+                        x += directionX;
+                    }, 1000/FPS);
+                }
+            }
+            window.onload = function () {
+                Initialize();
+                canvasOccupied = false;
+                //DrawLineAsyne(context, 30, 150, 200, 100, "#000");
+                DrawLineAsyne(context, 30, 150, 200, 300, "#000");
+                context.font = "12px Simsun";
+                context.fillText("每个函数都有一个计时器，且context的当前画线的起点是全局的，所以还不能实现同时画多个线， 或者先后画。", 10, 10);
+            }
+        </script>
+        <canvas id="myCanvas" width="640" height="480" style="border: 1px solid #c3c3c3;">
+            Your browser does not support canvas element.
+        </canvas>
+	</body>
+</html>
