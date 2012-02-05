@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>時の迷宮ヘルプ</title>
+    <script type="text/javascript">
+      window.onload = function () {
+         var calculate = document.getElementById("calculate");
+         calculate.onclick = function () {
+            var values = document.getElementById("arrays").value.split(",");
+            var output = document.getElementById("Result");
+            var list = GetLinkedList(values);
+            var queue = new Array();
+            for(var i = 1;i < list.length;i++){
+               ResetFlag(list);
+               queue = ResetQueue(queue);
+               if(GetQueue(queue, list, i) == true){
+                  output.innerHTML = output.innerHTML + "<br />" + queue.join("  ")
+                  break;
+               }
+            }
+         }
+      }
+      function GetLinkedList(values) {
+         var head = new Node(0, values[0], values.length);
+         var list = new Array();
+         for (var i = 0; i < values.length; i++) {
+            var node = new Node(i, values[i], values.length);
+            list.push(node);
+         }
+         return list;
+      }
+      function Node(index, value, length) {
+         this.Remain = true;
+         this.Index = index;
+         this.Value = Number(value);
+         var previous = index - this.Value;
+         this.Previous = previous < 0 ? length + previous : previous;
+         var next = index + this.Value;
+         this.Next = next >= length ? next - length : next;
+      }
+      function ResetFlag(list){
+         for(var i = 0; i < list.length; i++){
+            list[i].Remain = true;
+         }
+      }
+      function ResetQueue(queue){
+         queue = [];
+         return queue;
+      }
+      function GetQueue(queue, list, index){
+         list[index].Remain = false;
+         queue.push(index);
+         if(list[list[index].Previous].Remain == true && GetQueue(queue, list, list[index].Previous) == true){
+            return true;
+         }
+         if(list[list[index].Next].Remain == true && GetQueue(queue, list, list[index].Next) == true){
+            return true;
+         }
+         if(queue.length == list.length){
+            return true;
+         }
+         list[index].Remain = true;
+         queue.length -= 1;
+         return false;
+      }
+    </script>
+</head>
+<body>
+   <input id="arrays" type="text" value="1,2,5,3,5,4,2,3,3,4,2" />
+   <input id="calculate" type="button" value="Calculate" />
+   <div id="Result"></div>
+</body>
+</html>
