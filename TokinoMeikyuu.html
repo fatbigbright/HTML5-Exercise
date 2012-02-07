@@ -3,6 +3,9 @@
 <head>
     <title>時の迷宮ヘルプ</title>
     <script type="text/javascript">
+      //case 1:   5, 2, 4, 3, 5, 1, 2, 1, 3, 2, 5, 2,
+      //case 2:  4, 3, 2, 2, 2, 2, 3, 2, 5, 2
+      //case 3:   5, 5, 2, 5, 5, 1, 2, 5, 2, 3, 4
       window.onload = function () {
          var calculate = document.getElementById("calculate");
          calculate.onclick = function () {
@@ -53,7 +56,8 @@
          if(list[list[index].Previous].Remain == true && GetQueue(queue, list, list[index].Previous) == true){
             return true;
          }
-         if(list[list[index].Next].Remain == true && GetQueue(queue, list, list[index].Next) == true){
+         if(list[index].Previous != list[index].Next && 
+            list[list[index].Next].Remain == true && GetQueue(queue, list, list[index].Next) == true){
             return true;
          }
          if(queue.length == list.length){
@@ -66,7 +70,7 @@
     </script>
 </head>
 <body>
-   <input id="arrays" type="text" value="1,2,5,3,5,4,2,3,3,4,2" />
+   <input id="arrays" type="text" />
    <input id="calculate" type="button" value="Calculate" />
    <div id="Result"></div>
 </body>
